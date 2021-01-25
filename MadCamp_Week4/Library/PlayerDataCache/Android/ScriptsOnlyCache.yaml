@@ -2,11 +2,13 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - CameraControleer
+    - animationlocation
     - location
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
+    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintPaletteClipboard
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
@@ -20,8 +22,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -43,16 +47,26 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 50
       Script: {instanceID: 0}
+    - Class: 58
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 590}
     - Class: 114
-      Script: {instanceID: 14388}
+      Script: {instanceID: 13886}
     - Class: 114
-      Script: {instanceID: 40942}
+      Script: {instanceID: 14380}
+    - Class: 114
+      Script: {instanceID: 35304}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -450,6 +464,12 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
+      Hash: d3096a9f438dd7c991b4eb270d1f683a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CameraControleer
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -528,7 +548,7 @@ ScriptsOnlyBuild:
     className: StandaloneInputModule
   - hash:
       serializedVersion: 2
-      Hash: 25b65233c38b09550eba31c824a5c1ce
+      Hash: b621c9f19921cf928ad2422a787a2b71
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: location
@@ -564,11 +584,17 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: d3096a9f438dd7c991b4eb270d1f683a
+      Hash: 87b3da51b242ba6e5c32303dfffd24da
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: CameraControleer
+    className: Strawberrylocation
+  - hash:
+      serializedVersion: 2
+      Hash: 1a1649fced95df8a6e8cbcd0773e12c1
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: animationlocation
   platform: 13
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/q/Desktop/test10.apk
+  playerPath: C:/Users/q/Desktop/test11.apk
