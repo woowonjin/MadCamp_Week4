@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - CameraControleer
     - location
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
@@ -49,7 +50,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 590}
     - Class: 114
-      Script: {instanceID: 14374}
+      Script: {instanceID: 14388}
+    - Class: 114
+      Script: {instanceID: 40942}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -559,7 +562,13 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: d3096a9f438dd7c991b4eb270d1f683a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CameraControleer
   platform: 13
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/q/Desktop/FirstApk.apk
+  playerPath: C:/Users/q/Desktop/test10.apk
