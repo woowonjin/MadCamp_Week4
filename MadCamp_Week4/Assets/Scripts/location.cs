@@ -1,9 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Networking;
+using System.Text;
+
+
 public class location : MonoBehaviour
 {
+
+    List<string> myPets = new List<string>();
+    string phone = ""; //get from front
+    string url = "http://192.249.18.156:8000/pet/get/";
+
+    public GameObject Bird;
+    public GameObject Cat;
+    public GameObject Chicken;
+    public GameObject Cow;
+    public GameObject Dog;
+    public GameObject Duck;
+    public GameObject Elephant;
+    public GameObject Koala;
+    public GameObject Llama;
+    public GameObject Penguin;
+
+
     static float UPDATE_TIME = 1f;
     float updateTime = UPDATE_TIME;
     private Rigidbody2D rb;
@@ -21,6 +43,10 @@ public class location : MonoBehaviour
     private float cur_X;
     private float cur_Y;
     //움직일 위치값
+
+    float random_x;
+    float random_y;
+
     private float target_X, target_Y;
     private float target_latitude, target_longitude;
     //위도, 경도 1당 위치값
@@ -36,6 +62,14 @@ public class location : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        phone = LoginScene.phone;
+        byte[] phoneBytesForEncoding = Encoding.UTF8.GetBytes(phone);
+        string phoneEncodedString = Convert.ToBase64String(phoneBytesForEncoding);
+        
+        url += "?phone=" + phoneEncodedString;
+        StartCoroutine(Get());
+
+
         rb = GetComponent<Rigidbody2D>();
         Input.location.Start();
         //캐릭터를 기준점으로 이동
@@ -74,6 +108,75 @@ public class location : MonoBehaviour
         {
         }
     }
+
+    IEnumerator Get()
+    {
+        //List<IMultipartFormSection> form = new List<IMultipartFormSection>();
+        //form.Add(new MultipartFormDataSection("phone", "01085844764"));
+        UnityWebRequest webRequest = UnityWebRequest.Get(url);
+        yield return webRequest.SendWebRequest();
+        string result = webRequest.downloadHandler.text;
+        string result_full = "{\"Items\":" + result + "}";
+        Debug.Log(result_full);
+        Pet[] pets = JsonHelper.FromJson<Pet>(result_full);
+        foreach (Pet pet in pets)
+        {
+            myPets.Add(pet.kind);
+        }
+
+        foreach(string kind in myPets)
+        {   //kind
+            
+            random_x = UnityEngine.Random.Range(-21.53f, 1.92f);
+            random_y = UnityEngine.Random.Range(-4.55f, 20.35f);
+            Vector3 pos = new Vector3(random_x, random_y, -5);
+            if(kind == "BIRD")
+            {
+                Instantiate(Bird, pos, Quaternion.identity);
+            }
+            else if(kind == "CAT")
+            {
+                Instantiate(Cat, pos, Quaternion.identity);
+            }
+            else if (kind == "CHICKEN")
+            {
+                Instantiate(Chicken, pos, Quaternion.identity);
+            }
+            else if (kind == "COW")
+            {
+                Instantiate(Cow, pos, Quaternion.identity);
+            }
+            else if (kind == "DOG")
+            {
+                Instantiate(Dog, pos, Quaternion.identity);
+            }
+            else if (kind == "DUCK")
+            {
+                Instantiate(Duck, pos, Quaternion.identity);
+            }
+            else if (kind == "ELEPHANT")
+            {
+                Instantiate(Elephant, pos, Quaternion.identity);
+            }
+            else if (kind == "KOALA")
+            {
+                Instantiate(Koala, pos, Quaternion.identity);
+            }
+            else if (kind == "LLAMA")
+            {
+                Instantiate(Llama, pos, Quaternion.identity);
+            }
+            else if (kind == "PENGUIN")
+            {
+                Instantiate(Penguin, pos, Quaternion.identity);
+            }
+            //GameObject prefab = Resources.Load("Prefab/Bird") as GameObject;
+            //GameObject pet = MonoBehaviour.Instantiate(prefab) as GameObject;
+        }
+
+    }
+
+
     void RetrieveGPSData()
     {
         Debug.Log("RetrieveGPSData");
@@ -111,39 +214,58 @@ public class location : MonoBehaviour
     void Update()
     {
         //이동해야함
-        Debug.Log("update");
         updateTime -= Time.deltaTime;
         if (gps_connect > 0)
         {
-            Debug.Log("gps connect");
             Vector2 position = rb.position;
             if (position.x <= target_X + 0.00001 && position.x >= target_X - 0.00001 && position.y <= target_Y + 0.00001 && position.y >= target_Y - 0.00001)
             {
                 // Stop
-                Debug.Log("Stop");
+               
             }
             else
             {
-                Debug.Log("target X, Y : " + target_X + ", " + target_Y);
-                Debug.Log("current X, Y : " + cur_X + ", " + cur_Y);
+                
                 float moveX = (target_X - position.x) * Time.deltaTime + position.x;
                 float moveY = (target_Y - position.y) + Time.deltaTime + position.y;
-                Debug.Log("position : " + position);
+                
                 Vector2 dir = new Vector2((target_X - position.x), (target_Y - position.y));
                 Vector2 move = new Vector2(moveX, moveY);
-                Debug.Log("move" + move);
                 FindObjectOfType<animationlocation>().SetDirection(dir);
                 rb.MovePosition(move);
             }
         }
-        /*moveY = (cur_latitude - initLat) * perLat + initY;  //target 좌표
-        moveX = (cur_longitude - initLng) * perLng + initX;  //target 좌표
-        Debug.Log("moveY : " + moveY + ", moveX : " + moveX);
-        Vector2 temp = new Vector2(moveX, moveY);
-        rb.MovePosition(temp);*/
-        //rb.velocity = new Vector2(moveH, moveV); // OPTIONAL rb.MovePosition();
-        //rb.position = temp;
-        //Vector2 direction = new Vector2(moveH, moveV);
-        //FindObjectOfType<PlayerAnimation>().SetDirection(direction);
+       
+    }
+}
+
+[Serializable]
+public class Pet
+{
+    public string kind;
+}
+public static class JsonHelper
+{
+    public static T[] FromJson<T>(string json)
+    {
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
+        return wrapper.Items;
+    }
+    public static string ToJson<T>(T[] array)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.Items = array;
+        return JsonUtility.ToJson(wrapper);
+    }
+    public static string ToJson<T>(T[] array, bool prettyPrint)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.Items = array;
+        return JsonUtility.ToJson(wrapper, prettyPrint);
+    }
+    [Serializable]
+    private class Wrapper<T>
+    {
+        public T[] Items;
     }
 }

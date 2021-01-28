@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/LoginScene.unity
+    guid: c88dfe089831d324491db9ef82f64c1e
+  - enabled: 1
+    path: Assets/Scenes/NewUser.unity
+    guid: 6ac73bf729a1e4e4d82ed39012e8dbb1
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Quest.unity
+    guid: b6541f9ceb7227f41b7721ac6ed6e165
+  - enabled: 1
+    path: Assets/Scenes/PetShop.unity
+    guid: fa7fb0d74ee47804a89c38395264455b
   m_configObjects: {}
